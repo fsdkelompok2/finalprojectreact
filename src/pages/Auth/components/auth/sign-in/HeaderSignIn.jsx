@@ -1,5 +1,6 @@
 import JordanLogo from "../../../assets/JordanLogo";
 import NikeLogo from "../../../assets/NikeLogo";
+import { Link } from "react-router-dom";
 
 const HeaderSignIn = () => {
   return (
@@ -13,8 +14,14 @@ const HeaderSignIn = () => {
         <JordanLogo />
       </div>
       <h1 className="text-4xl antialiased font-normal tracking-wide">
-        Enter your email to join us or sign in.
+        Enter your account to join us.
       </h1>
+      <p className="text-base">
+        Don't have an account?{" "}
+        <Link to="/sign-up" className="underline">
+          Sign Up
+        </Link>
+      </p>
     </header>
   );
 };
