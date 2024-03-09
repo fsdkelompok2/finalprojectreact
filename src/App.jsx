@@ -13,6 +13,10 @@ const App = () => {
       path: "/",
       element: <Home />,
     },
+    {
+      path: "/home1",
+      element: <HomePage />,
+    },
   ];
 
   // Route hanya untuk login user
