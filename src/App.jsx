@@ -1,17 +1,53 @@
-import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import SignIn from "./pages/Auth/Sign-In";
 import SignUp from "./pages/Auth/Sign-Up";
+import { ProtectedRoute } from "./pages/Auth/components/auth/ProtectedRoute";
+import AuthProvider from "./pages/Auth/components/auth/AuthProvider";
+import CustomRoutes from "./pages/Auth/components/auth/CustomRoute";
 
 const App = () => {
+  // Route hanya untuk user publik (login/tidak login)
+  const routesForPublic = [
+    {
+      path: "/",
+      element: <Home />,
+    },
+  ];
+
+  // Route hanya untuk login user
+  const routesForAuthenticatedOnly = [
+    {
+      path: "/",
+      element: <ProtectedRoute />,
+      children: [
+        {
+          path: "/profile",
+          element: <div>User Profile</div>,
+        },
+      ],
+    },
+  ];
+
+  // Route hanya untuk user tidak login
+  const routesForNotAuthenticatedOnly = [
+    {
+      path: "/sign-in",
+      element: <SignIn />,
+    },
+    {
+      path: "/sign-up",
+      element: <SignUp />,
+    },
+  ];
+
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-      </Routes>
-    </>
+    <AuthProvider>
+      <CustomRoutes
+        publicRoutes={routesForPublic}
+        protectedRoutes={routesForAuthenticatedOnly}
+        unProtectedRoutes={routesForNotAuthenticatedOnly}
+      />
+    </AuthProvider>
   );
 };
 

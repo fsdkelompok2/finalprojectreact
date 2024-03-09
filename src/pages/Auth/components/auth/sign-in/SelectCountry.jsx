@@ -1,10 +1,16 @@
-const SelectCountry = () => {
+const SelectCountry = ({ initiaValue, onChange }) => {
   return (
     <select
+      onChange={(e) =>
+        onChange({
+          ...initiaValue,
+          country: e.target.value,
+        })
+      }
       className="select w-full"
       id="country"
       name="country"
-      defaultValue="Indonesia"
+      value={initiaValue.country}
     >
       <option value="Afghanistan">Afghanistan</option>
       <option value="Åland Islands">Åland Islands</option>
