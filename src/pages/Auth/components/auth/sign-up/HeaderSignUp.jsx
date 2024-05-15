@@ -6,8 +6,12 @@ const HeaderSignUp = () => {
   return (
     <header className="flex flex-col gap-4">
       <div className="flex gap-4">
-        <NikeLogo />
-        <JordanLogo />
+        <Link to={"/"}>
+          <NikeLogo />
+        </Link>
+        <Link to={"/"}>
+          <JordanLogo />
+        </Link>
       </div>
       <h1 className="text-3xl">Create your account to join us</h1>
       <p className="text-base">

@@ -1,7 +1,11 @@
+import { Layout } from "./components/Layout";
+
 import Home from "./pages/Home/Home";
 import SignIn from "./pages/Auth/Sign-In";
 import SignUp from "./pages/Auth/Sign-Up";
 import HomePage from "./pages/Home1/HomePage";
+import Cart from "./pages/Cart/Cart";
+
 import { ProtectedRoute } from "./pages/Auth/components/auth/ProtectedRoute";
 import AuthProvider from "./pages/Auth/components/auth/AuthProvider";
 import CustomRoutes from "./pages/Auth/components/auth/CustomRoute";
@@ -11,11 +15,23 @@ const App = () => {
   const routesForPublic = [
     {
       path: "/",
-      element: <Home />,
+      element: (
+        <Layout>
+          <Home />
+        </Layout>
+      ),
     },
     {
       path: "/home1",
       element: <HomePage />,
+    },
+    {
+      path: "/cart",
+      element: (
+        <Layout>
+          <Cart />
+        </Layout>
+      ),
     },
   ];
 

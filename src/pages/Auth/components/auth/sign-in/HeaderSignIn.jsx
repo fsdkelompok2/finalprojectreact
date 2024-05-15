@@ -10,8 +10,12 @@ const HeaderSignIn = () => {
       aria-label="Enter your email to join us or sign in. group"
     >
       <div className="flex items-center gap-6">
-        <NikeLogo />
-        <JordanLogo />
+        <Link to={"/"}>
+          <NikeLogo />
+        </Link>
+        <Link to={"/"}>
+          <JordanLogo />
+        </Link>
       </div>
       <h1 className="text-4xl antialiased font-normal tracking-wide">
         Enter your account to join us.

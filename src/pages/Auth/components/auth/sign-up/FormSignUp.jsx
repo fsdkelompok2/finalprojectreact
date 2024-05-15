@@ -187,10 +187,7 @@ const FormSignUp = () => {
 
       {/* <!-- Submit Button --> */}
       <div className="flex justify-end">
-        <button
-          type="submit"
-          className="btn btn-xs sm:btn-sm md:btn-md rounded-full"
-        >
+        <button type="submit" className="btn text-white bg-black rounded-full">
           Create Account
         </button>
       </div>

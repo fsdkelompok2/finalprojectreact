@@ -101,7 +101,7 @@ const FormSignIn = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="btn btn-xs sm:btn-sm md:btn-md rounded-full"
+            className="btn text-white bg-black rounded-full"
           >
             Continue
           </button>
