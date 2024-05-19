@@ -7,15 +7,9 @@ const Carousel = ({data}) => {
             {
                 data.carouselItem.map((item, index) => {
                         if(data.carouselItemModel === 2) {
-                            return <CarouselItemModelTwo 
-                                key={index} 
-                                imgUrl={item.imgUrl} 
-                                alt={item.alt}
-                                title={item.title}
-                                subtitle={item.subtitle}
-                            />
+                            return <CarouselItemModelTwo key={index} {...item}/>
                         }
-                        return <CarouselItemModelOne key={index} imgUrl={item.imgUrl} alt={item.alt}/>
+                        return <CarouselItemModelOne key={index} {...item}/>
                     }
                 )
             }

@@ -8,6 +8,7 @@ import Cart from "./pages/Cart/Cart";
 import { ProtectedRoute } from "./pages/Auth/components/auth/ProtectedRoute";
 import AuthProvider from "./pages/Auth/components/auth/AuthProvider";
 import CustomRoutes from "./pages/Auth/components/auth/CustomRoute";
+import NoMatch from "./pages/NoMatch/NoMatch";
 
 const App = () => {
   // Route hanya untuk user publik (login/tidak login)
@@ -15,9 +16,7 @@ const App = () => {
     {
       path: "/",
       element: (
-        <Layout>
-          <Home />
-        </Layout>
+        <Home />
       ),
     },
     {
@@ -28,6 +27,10 @@ const App = () => {
         </Layout>
       ),
     },
+    {
+      path: "*",
+      element: <NoMatch />
+    }
   ];
 
   // Route hanya untuk login user

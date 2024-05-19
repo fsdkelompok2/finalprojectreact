@@ -1,81 +1,21 @@
 import Accordion from "./components/Accordion"
-import Carousel from "./components/Carousel/Carousel"
+import Carousel from "../../components/Carousel/Carousel"
 import DoubleFeaturedProduct from "./components/DoubleFeaturedProduct/DoubleFeaturedProduct"
 import FeaturedProduct from "./components/FeaturedProduct"
 import FeaturedProductSection from "./components/FeaturedProductSection"
 import News from "./components/News"
+import carouselProduct from "../../dummydata/carouselProduct.json";
+import { Layout } from "../../components/Layout"
 
 const alwaysIconicCarousel = {
   title: "Always Iconic",
-  carouselItem: [
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.jpg",
-      alt: "Pizza"
-    },
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.jpg",
-      alt: "Pizza"
-    },
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.jpg",
-      alt: "Pizza"
-    },
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.jpg",
-      alt: "Pizza"
-    },
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.jpg",
-      alt: "Pizza"
-    },
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.jpg",
-      alt: "Pizza"
-    },
-  ]
+  carouselItem: carouselProduct
 }
 
 const shopBySportCarousel = {
   title: "Shop By Sport",
   carouselItemModel: 2,
-  carouselItem: [
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.jpg",
-      alt: "Pizza",
-      title: "Nike Basketball",
-      subtitle: "Styles made for Your Game"
-    },
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.jpg",
-      alt: "Pizza",
-      title: "Nike Basketball",
-      subtitle: "Styles made for Your Game"
-    },
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.jpg",
-      alt: "Pizza",
-      title: "Nike Basketball",
-      subtitle: "Styles made for Your Game"
-    },
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.jpg",
-      alt: "Pizza",
-      title: "Nike Basketball",
-      subtitle: "Styles made for Your Game"
-    },
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.jpg",
-      alt: "Pizza",
-      title: "Nike Basketball",
-      subtitle: "Styles made for Your Game"
-    },
-    {
-      imgUrl: "https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.jpg",
-      alt: "Pizza",
-      title: "Nike Basketball",
-      subtitle: "Styles made for Your Game"
-    },
-  ]
+  carouselItem: carouselProduct
 }
 
 const banner = {
@@ -315,67 +255,69 @@ const categoryAccordion = [
 
 const Home = () => {
   return (
-    <div>
-      <News />
+    <Layout>
+      <div>
+        <News />
 
-      {
-        banner && (
-          <FeaturedProductSection>
-            <FeaturedProduct data={banner.product}/>
-          </FeaturedProductSection>
-        )
-      }
+        {
+          banner && (
+            <FeaturedProductSection>
+              <FeaturedProduct data={banner.product}/>
+            </FeaturedProductSection>
+          )
+        }
 
-      {
-        featuredProduct && (
-          <FeaturedProductSection>
-            {
-              featuredProduct.product.map((item, index) => <FeaturedProduct key={index} data={item} />)
-            }
-          </FeaturedProductSection>
-        )
-      }
+        {
+          featuredProduct && (
+            <FeaturedProductSection>
+              {
+                featuredProduct.product.map((item, index) => <FeaturedProduct key={index} data={item} />)
+              }
+            </FeaturedProductSection>
+          )
+        }
 
-      {
-        dontMissFeaturedProduct && (
-          <FeaturedProductSection title={dontMissFeaturedProduct.title}>
-            {
-              dontMissFeaturedProduct.product.map((item, index) => <FeaturedProduct key={index} data={item} />)
-            }
-          </FeaturedProductSection>
-        )
-      }
+        {
+          dontMissFeaturedProduct && (
+            <FeaturedProductSection title={dontMissFeaturedProduct.title}>
+              {
+                dontMissFeaturedProduct.product.map((item, index) => <FeaturedProduct key={index} data={item} />)
+              }
+            </FeaturedProductSection>
+          )
+        }
 
-      {
-        dontMissDoubleFeaturedProduct && (
-          <FeaturedProductSection title={dontMissDoubleFeaturedProduct.title}>
-            {
-              dontMissDoubleFeaturedProduct.product.map((item, index) => <DoubleFeaturedProduct key={index} data={item} />)
-            }
-          </FeaturedProductSection>
-        )
-      }
+        {
+          dontMissDoubleFeaturedProduct && (
+            <FeaturedProductSection title={dontMissDoubleFeaturedProduct.title}>
+              {
+                dontMissDoubleFeaturedProduct.product.map((item, index) => <DoubleFeaturedProduct key={index} data={item} />)
+              }
+            </FeaturedProductSection>
+          )
+        }
 
-      {
-        alwaysIconicCarousel && (
-          <FeaturedProductSection title={alwaysIconicCarousel.title}>
-            <Carousel data={alwaysIconicCarousel} />
-          </FeaturedProductSection>
-        )
-      }
+        {
+          alwaysIconicCarousel && (
+            <FeaturedProductSection title={alwaysIconicCarousel.title}>
+              <Carousel data={alwaysIconicCarousel} />
+            </FeaturedProductSection>
+          )
+        }
 
-      {
-        shopBySportCarousel && (
-          <FeaturedProductSection  title={shopBySportCarousel.title}>
-            <Carousel data={shopBySportCarousel} />
-          </FeaturedProductSection>
-        )
-      }
+        {
+          shopBySportCarousel && (
+            <FeaturedProductSection  title={shopBySportCarousel.title}>
+              <Carousel data={shopBySportCarousel} />
+            </FeaturedProductSection>
+          )
+        }
 
-      <FeaturedProductSection>
-        <Accordion data={categoryAccordion} />
-      </FeaturedProductSection>
-    </div>
+        <FeaturedProductSection>
+          <Accordion data={categoryAccordion} />
+        </FeaturedProductSection>
+      </div>
+    </Layout>
   )
 }
 
