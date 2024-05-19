@@ -1,5 +1,5 @@
-import JordanLogo from "../../../assets/JordanLogo";
-import NikeLogo from "../../../assets/NikeLogo";
+import JordanLogo from "../../../../../assets/JordanLogo";
+import NikeLogo from "../../../../../assets/NikeLogo";
 import { Link } from "react-router-dom";
 
 const HeaderSignUp = () => {

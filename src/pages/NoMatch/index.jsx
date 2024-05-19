@@ -1,5 +1,5 @@
 import { Layout } from "../../components/Layout"
-import Carousel from "../../components/Carousel/Carousel"
+import Carousel from "../../components/Carousel"
 import carouselProduct from "../../dummydata/carouselProduct.json"
 
 const carousel = {

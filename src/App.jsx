@@ -1,14 +1,14 @@
 import { Layout } from "./components/Layout";
 
-import Home from "./pages/Home/Home";
-import SignIn from "./pages/Auth/Sign-In";
-import SignUp from "./pages/Auth/Sign-Up";
-import Cart from "./pages/Cart/Cart";
+import Home from "./pages/Home";
+import SignIn from "./pages/auth/SignIn";
+import SignUp from "./pages/auth/SignUp";
+import Cart from "./pages/Cart";
 
-import { ProtectedRoute } from "./pages/Auth/components/auth/ProtectedRoute";
-import AuthProvider from "./pages/Auth/components/auth/AuthProvider";
-import CustomRoutes from "./pages/Auth/components/auth/CustomRoute";
-import NoMatch from "./pages/NoMatch/NoMatch";
+import { ProtectedRoute } from "./pages/auth/components/auth/ProtectedRoute";
+import AuthProvider from "./pages/auth/components/auth/AuthProvider";
+import CustomRoutes from "./pages/auth/components/auth/CustomRoute";
+import NoMatch from "./pages/NoMatch";
 
 const App = () => {
   // Route hanya untuk user publik (login/tidak login)

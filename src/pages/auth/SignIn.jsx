@@ -1,5 +1,5 @@
 import Layout from "./components/auth/Layout";
-import SignInComponent from "./components/auth/sign-in";
+import SignInComponent from "./components/auth/SignIn";
 
 const SignIn = () => {
   return (

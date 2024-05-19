@@ -1,5 +1,5 @@
-import CarouselItemModelOne from "./CarouselItem/CarouselItemModelOne";
-import CarouselItemModelTwo from "./CarouselItem/CarouselItemModelTwo";
+import CarouselItemModelOne from "./carouselItem/CarouselItemModelOne";
+import CarouselItemModelTwo from "./carouselItem/CarouselItemModelTwo";
 
 const Carousel = ({data}) => {
     return (
