@@ -10,7 +10,7 @@ const News =  () => {
                 <p className="text-xs">
                     No matter what you feel like doing today, It's better as a Member.
                 </p>
-                <Link className="font-light underline text-xs pt-5" to="/">
+                <Link className="font-light underline text-xs pt-5" to="/sign-up/request-verification-code">
                     Join Us
                 </Link>
             </div>
