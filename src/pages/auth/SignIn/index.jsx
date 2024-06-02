@@ -1,7 +1,7 @@
 import Layout from "../components/Layout";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation, useLazyVerifyIdentityTokenQuery } from "../../../redux/api/auth";
+import { useLoginMutation, useLazyUserDetailsQuery } from "../../../redux/api/auth";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
@@ -23,13 +23,13 @@ const SignIn = () => {
         data: loginData, 
         error: loginError}
     ] = useLoginMutation();
-    const [verifyIdentityToken, {
-        isLoading: verifyIdentityTokenIsLoading, 
-        isError: verifyIdentityTokenIsError, 
-        isSuccess: verifyIdentityTokenIsSuccess, 
-        error: verifyIdentityTokenError,
-        data: verifyIdentityTokenData
-    }] = useLazyVerifyIdentityTokenQuery();
+    const [userDetailsQuery, {
+        isLoading: userDetailsQueryIsLoading, 
+        isError: userDetailsQueryIsError, 
+        isSuccess: userDetailsQueryIsSuccess, 
+        error: userDetailsQueryError,
+        data: userDetailsQueryData
+    }] = useLazyUserDetailsQuery();
 
     // Watch Login
     useEffect(() => {
@@ -39,7 +39,7 @@ const SignIn = () => {
 
         if(loginIsSuccess) {
             console.log("LOGIN SUCCESS", loginData);
-            verifyIdentityToken();
+            userDetailsQuery();
         }
 
         if(loginIsError) {
@@ -48,21 +48,21 @@ const SignIn = () => {
 
     }, [loginIsLoading, loginIsSuccess, loginIsError])
 
-    // Watch verifyIdentityToken
+    // Watch userDetailsQuery
     useEffect(() => {
-        if(verifyIdentityTokenIsLoading) {
+        if(userDetailsQueryIsLoading) {
             console.log("VERIFY IDENTITY TOKEN IS LOADING");
         }
 
-        if(verifyIdentityTokenIsSuccess) {
-            console.log("VERIFY IDENTITY TOKEN IS SUCCESS", verifyIdentityTokenData);
+        if(userDetailsQueryIsSuccess) {
+            console.log("VERIFY IDENTITY TOKEN IS SUCCESS", userDetailsQueryData);
             navigate("/");
         }
 
-        if(verifyIdentityTokenIsError) {
-            console.log("VERIFY IDENTITY TOKEN IS ERROR", verifyIdentityTokenError);
+        if(userDetailsQueryIsError) {
+            console.log("VERIFY IDENTITY TOKEN IS ERROR", userDetailsQueryError);
         }
-    }, [verifyIdentityTokenIsLoading, verifyIdentityTokenIsError, verifyIdentityTokenIsSuccess])
+    }, [userDetailsQueryIsLoading, userDetailsQueryIsError, userDetailsQueryIsSuccess])
     
     const submitHandler = (e) => {
         e.preventDefault();
@@ -139,9 +139,9 @@ const SignIn = () => {
                     <button
                         type="submit"
                         className="btn text-white bg-black rounded-full"
-                        disabled={loginIsLoading || verifyIdentityTokenIsLoading}
+                        disabled={loginIsLoading || userDetailsQueryIsLoading}
                     >
-                        {loginIsLoading || verifyIdentityTokenIsLoading ? <Loader/> : "Continue"}
+                        {loginIsLoading || userDetailsQueryIsLoading ? <Loader/> : "Continue"}
                     </button>
                 </div>
             </div>

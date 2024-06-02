@@ -1,7 +1,7 @@
 import Layout from "../../components/Layout";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useRegisterMutation } from "../../../../redux/api/auth";
+import { useLazyUserDetailsQuery, useRegisterMutation } from "../../../../redux/api/auth";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../../../components/Loader";
 import Header from "../components/Header";
@@ -19,37 +19,77 @@ const SendVerificationCode = () => {
         subscribe: false,
     });
 
-    const [register, {isLoading, isSuccess, data, isError, error}] = useRegisterMutation();
+    const [registerMutation, {
+        isLoading: registerMutationIsLoading, 
+        isSuccess: registerMutationIsSuccess, 
+        isError: registerMutationIsError, 
+        data: registerMutationData, 
+        error: registerMutationError,
+    }] = useRegisterMutation();
+
+    const [userDetailsQuery, {
+        isLoading: userDetailsQueryIsLoading, 
+        isError: userDetailsQueryIsError,
+        isSuccess: userDetailsQueryIsSuccess,
+        data: userDetailsQueryData,
+        error: userDetailsQueryError,
+    }] = useLazyUserDetailsQuery();
 
     const navigate = useNavigate();
 
+    // Watch useRegisterMutation
     useEffect(() => {
-        if(isLoading) {
+        if(registerMutationIsLoading) {
             console.log("REGISTER USER IS LOADING");
         }
 
-        if(isSuccess) {
-            navigate("/", {replace: true})
-            console.log("REGISTER SUCCESS", data);
+        if(registerMutationIsSuccess) {
+            console.log("REGISTER SUCCESS", registerMutationData);
+            userDetailsQuery();
         }
 
-        if(error) {
-            console.log("REGISTER ERROR", error);
+        if(registerMutationIsError) {
+            console.log("REGISTER ERROR", registerMutationError);
             alert("REGISTER ERROR");
         }
-    }, [isLoading, isSuccess, isError]);
+    }, [
+        registerMutationIsLoading, 
+        registerMutationIsSuccess, 
+        registerMutationIsError
+    ]);
+
+    // Watch useLazyUserDetailsQuery
+    useEffect(() => {
+        if (userDetailsQueryIsLoading) {
+            console.log(`userDetailsQueryIsLoading`);
+        }
+
+        if (userDetailsQueryIsError) {
+            console.log(`userDetailsQueryIsError ${userDetailsQueryError}`);
+            navigate("/sign-in", {replace: true});
+        }
+
+        if (userDetailsQueryIsSuccess) {
+            console.log(`userDetailsQueryIsSuccess ${userDetailsQueryData}`);
+            navigate("/", {replace: true});
+        }
+    }, [
+        userDetailsQueryIsLoading,
+        userDetailsQueryIsError,
+        userDetailsQueryIsSuccess
+    ]);
 
     const submitHandler = (e) => {
         e.preventDefault();
-        register({...signUp, birth: new Date(signUp.birth).toISOString()});
-    }
+        registerMutation({...signUp, birth: new Date(signUp.birth).toISOString()});
+    };
     
     return (
         <Layout>
             <Header />
             <div className="w-full flex flex-col gap-10">
                 <form onSubmit={submitHandler} className="flex flex-col gap-8">
-                    {/* Code */}
+                    {/* Verification Code */}
                     <div className="flex flex-col">
                         <label htmlFor="code" className="label label-text">
                             Verification code
@@ -228,9 +268,9 @@ const SendVerificationCode = () => {
                         <button 
                             type="submit" 
                             className="btn text-white bg-black rounded-full"
-                            disabled={isLoading}
+                            disabled={registerMutationIsLoading || userDetailsQueryIsLoading}
                         >
-                            {isLoading ? <Loader /> : "Create Account"}
+                            {(registerMutationIsLoading || userDetailsQueryIsLoading) ? <Loader /> : "Create Account"}
                         </button>
                     </div>
                 </form>

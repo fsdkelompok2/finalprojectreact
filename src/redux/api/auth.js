@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setUser, resetState } from '../features/userSlice';
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 
 const tagTypes = {
     user: 'User'
@@ -16,34 +16,11 @@ export const authAPI = createApi({
         return {
           url: '/login',
           method: 'POST',
+          credentials: 'include',
           body,
-          credentials: 'include'
-        }
-      }
-    }),
-    verifyIdentityToken: builder.query({
-      query: () => {
-        return ({
-          url: "/",
-          headers: {
-            authorization: Cookies.get("session")
-          }
-        })
-      },
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-            const { data } = await queryFulfilled;
-
-            // Set userSlice data
-            dispatch(setUser({...data.data}));
-          } catch (error) {
-            console.log(error);
-            
-            // Set userSlice data
-            dispatch(resetState());
         }
       },
-      providesTags: [tagTypes.user]
+      invalidatesTags: [tagTypes.user]
     }),
     requestVerificationCode: builder.mutation({
       query: (body)=> ({
@@ -58,28 +35,44 @@ export const authAPI = createApi({
           url: '/register',
           method: 'POST',
           body,
-        }
-      },
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-            const { data } = await queryFulfilled;
-            console.log("Data from user sign up", data);
-            
-            dispatch(setUser(data));
-            dispatch(setIsAuthenticated(true));
-            dispatch(setIsLoading(false));
-        } catch (error) {
-            console.log(error);
-
-            dispatch(setUser(null));
-            dispatch(setIsAuthenticated(true));
-            dispatch(setIsLoading(false));
+          credentials: 'include'
         }
       },
       invalidatesTags: [tagTypes.user]
     }),
     logout: builder.query({
       query: () => '/logout',
+    }),
+    userDetails: builder.query({
+      query: () => {
+        return {
+          url: '/',
+          headers: {
+            authorization: Cookies.get("session")
+          }
+        }
+      },
+      providesTags: [tagTypes.user],
+      transformResponse: (res) => {
+        const { data } = res;
+        return {
+          id: data?.customer_id,
+          email: data?.email,
+          firstName: data?.first_name,
+          lastName: data?.last_name,
+          shoppingPreference: data?.shopping_preference,
+          birth: data?.birth,
+          cartId: data?.cart[0]?.cart_id || '',
+        }
+      },
+      onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setUser(data));
+        } catch (error) {
+          console.log(error);
+        }
+      }
     })
   }),
 });
@@ -89,6 +82,5 @@ export const {
   useRegisterMutation,
   useRequestVerificationCodeMutation,
   useLazyLogoutQuery,
-  useVerifyIdentityTokenQuery,
-  useLazyVerifyIdentityTokenQuery
+  useLazyUserDetailsQuery
 } = authAPI;
