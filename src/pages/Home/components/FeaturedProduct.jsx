@@ -32,7 +32,7 @@ const FeaturedProduct = ({data}) => {
   }, [])
   
   return (
-    <div ref={parentRef} className="cursor-pointer" onClick={() => navigate(data.destinationURL)}>
+    <div ref={parentRef} className="cursor-pointer mb-4" onClick={() => navigate(data.destinationURL)}>
       {/* Card media */}
       {
         data?.media?.type === "img" ? (
