@@ -8,14 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetState } from "../../redux/features/userSlice";
 
 export const Navbar = () => {
-  const { user, isAuthenticated } = useSelector(state => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutHandler = () => {
     dispatch(resetState());
     navigate("/sign-in");
   };
-  
+
   return (
     <>
       {/* Top Menu */}
@@ -26,10 +26,8 @@ export const Navbar = () => {
         {/* Sign in button, show user email, logout  */}
         <div className="text-sm font-medium">
           {!isAuthenticated ? (
-            <Link to="/sign-in">
-              Sign In
-            </Link>            
-          ): (
+            <Link to="/sign-in">Sign In</Link>
+          ) : (
             <div className="flex gap-2">
               <p>{user.email}</p>
               <p>&#124;</p>

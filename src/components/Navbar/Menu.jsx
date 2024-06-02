@@ -1,31 +1,19 @@
-import { useState } from "react";
-
 export const DropdowMenu = ({ label, items }) => {
-  const [openMenu, setOpenMenu] = useState(false);
-  const handleOpen = () => {
-    setOpenMenu(!openMenu);
-  };
-
   return (
-    <li
-      className="relative"
-      onMouseEnter={handleOpen}
-      onMouseLeave={handleOpen}
-    >
+    <li className="dropdown dropdown-hover">
       <a tabIndex={0} role="button">
         {label}
       </a>
-      {openMenu && (
-        <ul
-          className={`w-[200px] absolute top-12 -left-10     menu bg-base-200 rounded-box shadow-md`}
-        >
-          {items.map((item, i) => (
-            <li key={i}>
-              <a>{item}</a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul
+        tabIndex={0}
+        className={`dropdown-content z-[1] w-[200px] menu bg-base-200 rounded-box shadow-md`}
+      >
+        {items.map((item, i) => (
+          <li key={i}>
+            <a>{item}</a>
+          </li>
+        ))}
+      </ul>
     </li>
   );
 };
